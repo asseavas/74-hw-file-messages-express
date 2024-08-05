@@ -1,5 +1,6 @@
 import express from 'express';
 import { promises as fs } from 'fs';
+import {IMessage} from '../types';
 
 const messagesRouter = express.Router();
 const path = './messages';
@@ -13,7 +14,7 @@ messagesRouter.post('/', async (req, res) => {
 
   const datetime = new Date().toISOString();
   const filename = `${path}/${datetime}.txt`;
-  const savedMessage = { message, date: datetime };
+  const savedMessage: IMessage = { message, date: datetime };
 
   try {
     await fs.writeFile(filename, JSON.stringify(savedMessage));
